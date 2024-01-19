@@ -3,9 +3,9 @@
     <!-- header section starts  -->
     <header class="header">
       <a href="#" class="logo">
-        <img src="../assets/images/logo.png" alt="Logo">
+        <img src="../assets/images/logo.png" alt="">
       </a>
-      <nav class="navbar">
+      <nav class="navbar" :class="{ 'active': isNavbarActive }">
         <a href="#home">home</a>
         <a href="#about">about</a>
         <a href="#menu">menu</a>
@@ -15,15 +15,14 @@
         <a href="#blogs">blogs</a>
       </nav>
       <div class="icons">
-        <div class="fas fa-search" id="search-btn"></div>
+        <div class="fas fa-search" id="search-btn" @click="toggleSearch"></div>
         <div class="fas fa-shopping-cart" id="cart-btn"></div>
-        <div class="fas fa-bars" id="menu-btn"></div>
+        <div class="fas fa-bars" id="menu-btn" @click="toggleNavbar"></div>
       </div>
-      <div class="search-form">
+      <div class="search-form" v-show="isSearchVisible">
         <input type="search" id="search-box" placeholder="search here...">
         <label for="search-box" class="fas fa-search"></label>
       </div>
-      <!-- ... (cart items container and other content) -->
 
       <div class="cart-items-container">
         <div class="cart-item">
@@ -60,6 +59,7 @@
         </div>
         <a href="#" class="btn">checkout now</a>
       </div>
+
     </header>
     <!-- header section ends -->
   </div>
@@ -68,22 +68,37 @@
 <script>
 export default {
   name: "HeaderComponents",
+  data() {
+    return {
+      isSearchVisible: false,
+      isNavbarActive: false,
+    };
+  },
   methods: {
     toggleNavbar() {
-      let navbar = document.querySelector('.navbar');
-      navbar.classList.toggle('active');
-    }
+      this.isNavbarActive = !this.isNavbarActive;
+      if (!this.isNavbarActive) {
+        window.addEventListener('scroll', this.closeNavbarOnScroll);
+      } else {
+        window.removeEventListener('scroll', this.closeNavbarOnScroll);
+      }
+    },
+    toggleSearch() {
+      this.isSearchVisible = !this.isSearchVisible;
+    },
+    closeNavbarOnScroll() {
+      this.isNavbarActive = false;
+      window.removeEventListener('scroll', this.closeNavbarOnScroll);
+    },
   },
-  mounted() {
-    window.addEventListener('scroll', this.toggleNavbar);
-  },
-  unmounted() {
-    window.removeEventListener('scroll', this.toggleNavbar);
-  }
-}
+};
 </script>
 
+<style lang="scss" scoped>
+/* Tambahkan gaya untuk navbar yang aktif */
+.active {
+  display: block !important; /* !important digunakan untuk memastikan gaya ini diaplikasikan */
+  text-align: center;
 
-<style lang="scss" scoped></style>
-
-
+}
+</style>
