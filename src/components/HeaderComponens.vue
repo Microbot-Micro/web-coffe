@@ -1,14 +1,10 @@
 <template>
   <div>
     <!-- header section starts  -->
-
     <header class="header">
-
       <a href="#" class="logo">
-        <img src="../assets/../assets/images/logo.png" alt="">
+        <img src="../assets/images/logo.png" alt="Logo">
       </a>
-
-
       <nav class="navbar">
         <a href="#home">home</a>
         <a href="#about">about</a>
@@ -18,17 +14,16 @@
         <a href="#contact">contact</a>
         <a href="#blogs">blogs</a>
       </nav>
-
       <div class="icons">
         <div class="fas fa-search" id="search-btn"></div>
         <div class="fas fa-shopping-cart" id="cart-btn"></div>
         <div class="fas fa-bars" id="menu-btn"></div>
       </div>
-
       <div class="search-form">
         <input type="search" id="search-box" placeholder="search here...">
         <label for="search-box" class="fas fa-search"></label>
       </div>
+      <!-- ... (cart items container and other content) -->
 
       <div class="cart-items-container">
         <div class="cart-item">
@@ -65,17 +60,30 @@
         </div>
         <a href="#" class="btn">checkout now</a>
       </div>
-
     </header>
-
     <!-- header section ends -->
   </div>
 </template>
 
 <script>
 export default {
-  name: "HeaderComponens"
+  name: "HeaderComponents",
+  methods: {
+    toggleNavbar() {
+      let navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('active');
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.toggleNavbar);
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.toggleNavbar);
+  }
 }
 </script>
 
+
 <style lang="scss" scoped></style>
+
+
