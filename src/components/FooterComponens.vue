@@ -20,7 +20,7 @@
                 <a href="#">blogs</a>
             </div>
 
-            <div class="credit">created by <span>Microbot-Micro</span></div>
+            <div class="credit">2024 Copyright Created by <span @click="goToGitHub">Microbot-Micro</span></div>
 
         </section>
     </div>
@@ -28,8 +28,15 @@
 
 <script>
 export default {
-    name: "FooterComponens"
+    name: "FooterComponens",
+    methods: {
+            goToGitHub() {
+                window.open('https://github.com/Microbot-Micro/web-coffe', '_blank');
+            }
+        }
 }
 </script>
 
 <style lang="scss" scoped></style>
+
+tolong dikasih
